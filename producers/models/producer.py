@@ -9,7 +9,7 @@ from confluent_kafka.avro import AvroProducer
 logger = logging.getLogger(__name__)
 
 SCHEMA_REGISTRY_URL = "http://localhost:8081"
-BROKER_URL = "PLAINTEXT://localhost:9092"  #list of servers
+BROKER_URL = "PLAINTEXT://localhost:9092"  # list of servers
 
 
 class Producer:
@@ -34,10 +34,8 @@ class Producer:
         self.num_replicas = num_replicas
 
         #
-        #
         # TODO: Configure the broker properties below. Make sure to reference the project README
         # and use the Host URL for Kafka and Schema Registry!
-        #
         #
         self.broker_properties = {
             "bootstrap.servers": "PLAINTEXT://localhost:9092",
@@ -62,25 +60,34 @@ class Producer:
         # TODO: Write code that creates the topic for this producer if it does not already exist on
         # the Kafka Broker.
         #
-        #
-        logger.info("Creating kafka topic")
-
+        logger.info("Creating kafka topic ")
         client = AdminClient(
-            {"bootstrap.servers": self.broker_properties["bootstrap.servers"]})
-        topic_metadata = client.list_topics(timeout=5)  #use 8 for testing
+            {"bootstrap.servers": self.broker_properties["bootstrap.servers"]}
+        )
+
+        topic_metadata = client.list_topics(timeout=5)  # use 8 for testing
+
         if self.topic_name in set(
-                tt.topic for tt in iter(topic_metadata.topics.values())):
+            tt.topic for tt in iter(topic_metadata.topics.values())
+        ):
             logger.info("topic %s  already exists, move on", self.topic_name)
             return
         logger.info(
             "details: creating  new topic %s with partition %s and replicas %s",
-            self.topic_name, self.num_partitions, self.num_replicas)
+            self.topic_name,
+            self.num_partitions,
+            self.num_replicas,
+        )
         #         asyncio instead?
-        futures = client.create_topics([
-            NewTopic(topic=self.topic_name,
-                     num_partitions=self.num_partitions,
-                     replication_factor=self.num_replicas)
-        ])
+        futures = client.create_topics(
+            [
+                NewTopic(
+                    topic=self.topic_name,
+                    num_partitions=self.num_partitions,
+                    replication_factor=self.num_replicas,
+                )
+            ]
+        )
 
         for topic, fut in futures.items():
             try:
@@ -93,8 +100,6 @@ class Producer:
         """Prepares the producer for exit by cleaning up the producer"""
         #
         # TODO: Write cleanup code for the Producer here
-        #
-        logger.info("producer close operation")
         if self.producer is not None:
             # flush the producer if not empty, flush it before close
             logger.debug("flush")

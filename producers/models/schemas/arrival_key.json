@@ -1,11 +1,9 @@
 {
-  "namespace": "com.udacity",
-  "type": "record",
-  "name": "arrival.key",
-  "fields": [
-    {
-      "name": "timestamp",
-      "type": "long"
-    }
-  ]
+    "namespace": "com.udacity.arrival",
+    "type": "record",
+    "name": "arrival.key",
+    "fields": [{
+        "name": "timestamp",
+        "type": "long"
+    }]
 }
