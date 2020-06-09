@@ -1,2 +1,3 @@
 producers/venv
 .metals
+.vscode
