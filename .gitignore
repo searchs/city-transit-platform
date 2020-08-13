@@ -1,3 +1,4 @@
 producers/venv
 .metals
 .vscode
+.idea
