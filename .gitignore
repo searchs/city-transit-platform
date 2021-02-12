@@ -1,4 +1,7 @@
 producers/venv
 .metals
 .vscode
-.idea
+.ideaproducers/models/__pycache__
+producers/__pycache__
+.idea/
+producers/models/__pycache__/

@@ -1,12 +1,15 @@
 {
-    "namespace": "com.udacity",
-    "type": "record",
-    "name": "weather.value",
-    "fields": [{
-        "name": "temperature",
-        "type": "float"
-    }, {
-        "name": "status",
-        "type": "string"
-    }]
+  "namespace": "com.udacity.weather",
+  "type": "record",
+  "name": "weather.value",
+  "fields": [
+    {
+      "name": "temperature",
+      "type": "float"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    }
+  ]
 }
