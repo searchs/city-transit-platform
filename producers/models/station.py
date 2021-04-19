@@ -7,7 +7,6 @@ from confluent_kafka import avro
 from models import Turnstile
 from models.producer import Producer
 
-import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +20,6 @@ class Station(Producer):
     #
     # TODO: Define this value schema in `schemas/station_value.json, then uncomment the below
     #
-    # value_schema = avro.load(f"{Path(__file__).parents[0]}/schemas/arrival_value.json")
 
     def __init__(self, station_id, name, color, direction_a=None, direction_b=None):
         self.name = name
@@ -37,15 +35,14 @@ class Station(Producer):
         #
         # TODO: Complete the below by deciding on a topic name, number of partitions, and number of
         # replicas
-        #         topic_name = f"{station_name + station_id}"  # TODO: Come up with a better topic name
-        self.topic_name = "{0}_{1}".format(station_name, station_id)
-
-        # TODO: Come up with a better topic name
+        # org.chicago.cta.station.arrivals
+        #
+        topic_name = "org.chicago.cta.station.arrivals"
         super().__init__(
-            self.topic_name,
+            topic_name,
             key_schema=Station.key_schema,
             value_schema=Station.value_schema,
-            num_partitions=2,
+            num_partitions=1,
             num_replicas=1,
         )
 
@@ -60,11 +57,17 @@ class Station(Producer):
     def run(self, train, direction, prev_station_id, prev_direction):
         """Simulates train arrivals at this station"""
         #
+        #
         # TODO: Complete this function by producing an arrival message to Kafka
         #
-        logger.info("arrival now running")
+        #
+        logger.info(
+            "\nArrival kafka integration complete:  Arrival Messages are here\n"
+        )
         self.producer.produce(
             topic=self.topic_name,
+            key_schema=Station.key_schema,
+            value_schema=Station.value_schema,
             key={"timestamp": self.time_millis()},
             value={
                 "station_id": self.station_id,

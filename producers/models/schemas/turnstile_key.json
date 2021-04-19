@@ -1,9 +1,11 @@
 {
-    "namespace": "com.udacity.turnstile",
-    "type": "record",
-    "name": "turnstile.key",
-    "fields": [{
-        "name": "timestamp",
-        "type": "long"
-    }]
+  "namespace": "org.chicago.cta",
+  "type": "record",
+  "name": "turnstile.key",
+  "fields": [
+    {
+      "name": "timestamp",
+      "type": "long"
+    }
+  ]
 }

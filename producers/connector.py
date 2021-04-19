@@ -4,7 +4,9 @@ import logging
 
 import requests
 
+
 logger = logging.getLogger(__name__)
+
 
 KAFKA_CONNECT_URL = "http://localhost:8083/connectors"
 CONNECTOR_NAME = "stations"
@@ -24,7 +26,7 @@ def configure_connector():
         # using incrementing mode, with `stop_id` as the incrementing column name.
         # Make sure to think about what an appropriate topic prefix would be, and how frequently Kafka
         # Connect should run this connector (hint: not very often!)
-        return
+#         return
 
     # TODO: Complete the Kafka Connect Config below.
     # Directions: Use the JDBC Source Connector to connect to Postgres. Load the `stations` table
@@ -45,23 +47,27 @@ def configure_connector():
                     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
                     "value.converter.schemas.enable": "false",
                     "batch.max.rows": "500",
-                    # TODO: replace with dynamic IP
-                    "connection.url": "jdbc:postgresql://0.0.0.0:5432/cta",
+                    "connection.url": "jdbc:postgresql://localhost:5432/cta",
                     "connection.user": "cta_admin",
                     "connection.password": "chicago",
                     "table.whitelist": "stations",
                     "mode": "incrementing",
                     "incrementing.column.name": "stop_id",
-                    "topic.prefix": "org.cta.",
-                    "poll.interval.ms": "3600000",
+                    "topic.prefix": "jdbc.",  # Using appropriate topic prefix
+                    "poll.interval.ms": 10000,
                 },
             }
         ),
     )
 
     ## Ensure a healthy response was given
-    print(f"{resp.json()}")
-    resp.raise_for_status()
+    try:
+        print("Connector at work!")
+        resp.raise_for_status()
+    except:
+        logger.info(f"Cannot create connector - {json.dumps(resp.json(), indent=2)}")
+        exit(1)
+
     logging.debug("connector created successfully")
 
 

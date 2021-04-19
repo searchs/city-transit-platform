@@ -1,5 +1,5 @@
 {
-    "namespace": "com.udacity.turnstile",
+    "namespace": "org.chicago.cta",
     "type": "record",
     "name": "turnstile.value",
     "fields": [{
