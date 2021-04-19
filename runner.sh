@@ -9,7 +9,8 @@ python -m pip install --upgrade pip
 
 python -m pip install --upgrade pandas==0.24.2
 pip install -r requirements.txt
-python simulation.py
+simulate="python simulation.py"
+$simulate &
 
 cd ../consumers
 mkdir -p venv
@@ -19,7 +20,8 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 #KickOff Faust
-faust -A faust_stream worker -l info
+faust_run="faust -A faust_stream worker -l info"
+$faust_run &
 
 #Run the ksql to create the required tables
 python ksql.py
