@@ -8,4 +8,5 @@ producers/__pycache__
 producers/models/__pycache__/
 /consumers/venv/
 consumers/__pycache__/
-*__pycache__*transport_readme.md
+*__pycache__*
+transport_readme.md
