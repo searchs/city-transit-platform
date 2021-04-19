@@ -7,4 +7,5 @@ producers/__pycache__
 .idea/
 producers/models/__pycache__/
 /consumers/venv/
-*__pycache__*
+consumers/__pycache__/
+*__pycache__*transport_readme.md
