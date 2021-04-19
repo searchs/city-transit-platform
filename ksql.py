@@ -13,23 +13,23 @@ logger = logging.getLogger(__name__)
 KSQL_URL = "http://localhost:8088"
 
 KSQL_STATEMENT = """
-    CREATE TABLE turnstile (
-        station_id INT,
-        station_name VARCHAR,
-        line VARCHAR 
-    ) WITH (
-        kafka_topic = 'turnstile',
-        value_format = 'avro', 
-        key = 'station_id'
-    );
-    CREATE TABLE turnstile_summary 
-    WITH (
-        kafka_topic = 'turnstile_summary',
-        value_format = 'json') AS 
-        SELECT station_id, COUNT(station_id) AS count
-        FROM turnstile 
-        GROUP BY station_id;
-    """
+CREATE TABLE turnstile (
+    station_id INT,
+    station_name VARCHAR,
+    line VARCHAR 
+) WITH (
+    kafka_topic = 'turnstile',
+    value_format = 'avro', 
+    key = 'station_id'
+);
+CREATE TABLE turnstile_summary 
+WITH (
+    kafka_topic = 'turnstile_summary',
+    value_format = 'json') AS 
+    SELECT station_id, COUNT(station_id) AS count
+    FROM turnstile 
+    GROUP BY station_id;
+"""
 
 
 def execute_statement():
@@ -52,7 +52,6 @@ def execute_statement():
 
     # Ensure that a 2XX status code was returned
     try:
-        print("STATUS Returned: {resp.status}")
         resp.raise_for_status()
     except requests.exceptions.HTTPError as e:
         print(e)
