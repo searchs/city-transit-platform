@@ -4,7 +4,7 @@
 cd producers
 mkdir -p venv
 python -m venv venv
-. venv/bin/activate
+source venv/bin/activate
 python -m pip install --upgrade pip
 
 python -m pip install --upgrade pandas==0.24.2
@@ -15,7 +15,7 @@ $simulate &
 cd ../consumers
 mkdir -p venv
 python -m venv venv
-. venv/bin/activate
+source venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 
@@ -31,6 +31,7 @@ status=$?
 if [[ status -eq 0 ]]; then
     echo "Dashboard will run on http://localhost:8889"
     python server.py
+    trap "kill 0" EXIT
 else
   echo "KSQL Create table is not successful.  Check and try again.."
 fi
