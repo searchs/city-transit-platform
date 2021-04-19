@@ -35,28 +35,28 @@ def configure_connector():
     resp = requests.post(
         KAFKA_CONNECT_URL,
         headers={"Content-Type": "application/json"},
-        data=json.dumps({
-            "name": CONNECTOR_NAME,
-            "config": {
-                "connector.class":
-                "io.confluent.connect.jdbc.JdbcSourceConnector",
-                "key.converter": "org.apache.kafka.connect.json.JsonConverter",
-                "key.converter.schemas.enable": "false",
-                "value.converter":
-                "org.apache.kafka.connect.json.JsonConverter",
-                "value.converter.schemas.enable": "false",
-                "batch.max.rows": "500",
-                # TODO: replace with dynamic IP
-                "connection.url": "jdbc:postgresql://0.0.0.0:5432/cta",
-                "connection.user": "cta_admin",
-                "connection.password": "chicago",
-                "table.whitelist": "stations",
-                "mode": "incrementing",
-                "incrementing.column.name": "stop_id",
-                "topic.prefix": "org.cta.",
-                "poll.interval.ms": "3600000",
-            },
-        }),
+        data=json.dumps(
+            {
+                "name": CONNECTOR_NAME,
+                "config": {
+                    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+                    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+                    "key.converter.schemas.enable": "false",
+                    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+                    "value.converter.schemas.enable": "false",
+                    "batch.max.rows": "500",
+                    # TODO: replace with dynamic IP
+                    "connection.url": "jdbc:postgresql://0.0.0.0:5432/cta",
+                    "connection.user": "cta_admin",
+                    "connection.password": "chicago",
+                    "table.whitelist": "stations",
+                    "mode": "incrementing",
+                    "incrementing.column.name": "stop_id",
+                    "topic.prefix": "org.cta.",
+                    "poll.interval.ms": "3600000",
+                },
+            }
+        ),
     )
 
     ## Ensure a healthy response was given
