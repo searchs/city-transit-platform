@@ -1,52 +1,51 @@
-# Chicago Transit Authority Status dashboard
+# City Transit Platform — Historical Streaming Project
 
-This is a project for Udacity Data Streaming Nanaodegree.  It processes Chicago Transit Authority data providing a dashboard displaying train arrivals in real or near-real time.
-The goal is to consume the data using Apache Kafka, Faust and Python
-The dataset is publicly available via the [Chicago Transit Authority](https://www.transitchicago.com/data/).
+> **Status:** Archived / historical engineering project. This repository is retained for provenance and learning value; it is not an actively maintained production platform.
 
-Here's a screenshot of the expected dashboard:
+This project was created as part of the **Udacity Data Streaming Nanodegree**. It processes Chicago Transit Authority (CTA) data and demonstrates a streaming architecture built around Apache Kafka, Faust, Python, PostgreSQL and Confluent ecosystem tooling.
+
+The code reflects the technology and course environment at the time it was written, including Python 3.7, PostgreSQL 11 and older Kafka/Faust-era tooling. It should therefore be treated as a historical case study rather than a current implementation template.
+
+## What it demonstrates
+
+- Kafka producers and consumers
+- event-stream processing with Faust
+- ksqlDB / Confluent-style stream processing concepts
+- PostgreSQL-backed transit data
+- simulated CTA train-arrival data
+- a near-real-time status dashboard architecture
+
+The underlying CTA dataset is publicly available from the Chicago Transit Authority.
 
 ![Final User Interface](images/ui.png)
 
-
-## Development Environment
-
-The development requires the libraries and tool along with their dependencies:
-	
-- Python 3.7
-- Apache Kafka
-- Postgresql 11
-- Faust
-- Python libraries as specified in requirements.txt in the Producers and Consumers directories.
-- Access to a computer with a minimum of 16gb+ RAM and a 4-core CPU to execute the simulation
-
-Using the 
-
-## Description
-
-The Chicago Transit Authority (CTA) has asked us to develop a dashboard displaying system status for its commuters. We have decided to use Kafka and ecosystem tools like REST Proxy and Kafka Connect to accomplish this task.
-
-Our architecture will look like so:
+## Historical architecture
 
 ![Project Architecture](images/diagram.png)
 
-### Running the system 
+A representative development flow was:
 
 ```bash
 python producers/simulation.py
 
 cd consumers
-
 faust -A faust_stream worker -l info
-
 python consumers/ksql.py
-
 python consumers/server.py
 ```
 
-#### Tools/Libraries Documentation
+## Archive policy
 
-* [Confluent Python Client Documentation](https://docs.confluent.io/current/clients/confluent-kafka-python/#)
-* [Confluent Python Client Usage and Examples](https://github.com/confluentinc/confluent-kafka-python#usage)
-* [REST Proxy API Reference](https://docs.confluent.io/current/kafka-rest/api.html#post--topics-(string-topic_name))
-* [Kafka Connect JDBC Source Connector Configuration Options](https://docs.confluent.io/current/connect/kafka-connect-jdbc/source-connector/source_config_options.html)
+No feature development is planned in this repository. If a streaming pattern remains useful, migrate the specific concept into an actively maintained repository such as `data-engineerings` rather than reviving this codebase wholesale.
+
+The repository is intentionally retained as evidence of earlier hands-on work with Kafka, stream processing and data-engineering architecture.
+
+## Original reference stack
+
+- Python 3.7
+- Apache Kafka
+- PostgreSQL 11
+- Faust
+- Confluent REST Proxy / Kafka Connect / ksqlDB concepts
+
+Security, dependency and operational assumptions should be re-evaluated before running this code on a modern environment.
